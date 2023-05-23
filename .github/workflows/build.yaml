@@ -15,7 +15,6 @@ jobs:
 
       - name: Gradle
         run: |
-          cd ./java-app
           chmod +x ./gradlew
           ./gradlew build
 
