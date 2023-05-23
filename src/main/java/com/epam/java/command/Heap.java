@@ -1,7 +1,7 @@
+
 package com.epam.java.command;
 
 import com.epam.java.util.Logging;
-
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -11,7 +11,6 @@ import java.util.Random;
 public class Heap implements Command {
 
     private static final Logging.Logger LOGGER = Logging.getLogger();
-
     private static final String DEFAULT_MODE = "normal";
     private static final Map<String, Command> MODES = new HashMap<>();
 
@@ -43,7 +42,7 @@ public class Heap implements Command {
         private final Random random = new Random();
 
         @Override
-        public void start(String[] args) throws Exception {
+        public void start(String[] args) throws InterruptedException {
             try {
                 final LinkedList<byte[]> list = new LinkedList<>();
                 while (!Thread.currentThread().isInterrupted()) {
@@ -54,16 +53,14 @@ public class Heap implements Command {
                         monitor.wait(100);
                     }
                 }
-            } catch (Throwable throwable) {
-                LOGGER.error(throwable);
-                synchronized (monitor) {
-                    monitor.wait();
-                }
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+                LOGGER.error(ex);
             }
         }
 
         @Override
-        public void stop() throws Exception {
+        public void stop() throws InterruptedException {
             Thread.currentThread().interrupt();
             synchronized (monitor) {
                 monitor.notifyAll();
@@ -78,7 +75,7 @@ public class Heap implements Command {
         private final Random random = new Random();
 
         @Override
-        public void start(String[] args) throws Exception {
+        public void start(String[] args) throws InterruptedException {
             try {
                 while (!Thread.currentThread().isInterrupted()) {
                     byte[] bytes = new byte[1024 * 1024];
@@ -88,16 +85,14 @@ public class Heap implements Command {
                         monitor.wait(100);
                     }
                 }
-            } catch (Throwable throwable) {
-                LOGGER.error(throwable);
-                synchronized (monitor) {
-                    monitor.wait();
-                }
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+                LOGGER.error(ex);
             }
         }
 
         @Override
-        public void stop() throws Exception {
+        public void stop() throws InterruptedException {
             Thread.currentThread().interrupt();
             synchronized (monitor) {
                 monitor.notifyAll();
@@ -112,7 +107,7 @@ public class Heap implements Command {
         private final Random random = new Random();
 
         @Override
-        public void start(String[] args) throws Exception {
+        public void start(String[] args) throws InterruptedException {
             try {
                 while (!Thread.currentThread().isInterrupted()) {
                     byte[] bytes = new byte[1024 * 1024];
@@ -122,16 +117,14 @@ public class Heap implements Command {
                         monitor.wait(100);
                     }
                 }
-            } catch (Throwable throwable) {
-                LOGGER.error(throwable);
-                synchronized (monitor) {
-                    monitor.wait();
-                }
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+                LOGGER.error(ex);
             }
         }
 
         @Override
-        public void stop() throws Exception {
+        public void stop() throws InterruptedException {
             Thread.currentThread().interrupt();
             synchronized (monitor) {
                 monitor.notifyAll();

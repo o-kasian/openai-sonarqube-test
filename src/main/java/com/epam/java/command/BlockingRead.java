@@ -1,3 +1,4 @@
+
 package com.epam.java.command;
 
 import com.epam.java.util.Logging;
@@ -5,10 +6,11 @@ import com.epam.java.util.Logging;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Logger;
 
 public class BlockingRead implements Command {
 
-    private static final Logging.Logger LOGGER = Logging.getLogger();
+    private static final Logger LOGGER = Logging.getLogger();
     private static final int DEFAULT_PORT = 2789;
     private ServerSocket serverSocket;
 
@@ -26,7 +28,7 @@ public class BlockingRead implements Command {
 
             int dataByte;
             while ((dataByte = inputStream.read()) != -1) {
-                System.out.print((char) dataByte);
+                LOGGER.info(String.valueOf((char) dataByte));
             }
             LOGGER.info("Disconnected");
         }

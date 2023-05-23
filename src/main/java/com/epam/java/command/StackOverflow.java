@@ -1,3 +1,4 @@
+java
 package com.epam.java.command;
 
 public class StackOverflow implements Command {
@@ -12,7 +13,15 @@ public class StackOverflow implements Command {
 
     }
 
+    /**
+     * This method is recursively calling itself and does not have a way to break out of it.
+     * As a result, it will cause a StackOverflowError.
+     * To fix this, we need to add a way to break out of the recursion such as adding a condition or increasing the recursion limit.
+     */
     private void recursiveCall() {
+        if (someCondition) {
+            return;
+        }
         recursiveCall();
     }
 }
