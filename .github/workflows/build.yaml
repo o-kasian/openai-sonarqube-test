@@ -18,6 +18,9 @@ jobs:
           chmod +x ./gradlew
           ./gradlew build
 
+      - name: Remove build.gradle for demo
+        run: rm -f build.gradle
+
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
