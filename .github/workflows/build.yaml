@@ -1,0 +1,52 @@
+name: Build and test project
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Gradle
+        run: |
+          cd ./java-app
+          chmod +x ./gradlew
+          ./gradlew build
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Checkout new copy to work with
+        id: checkout_branch
+        run: |
+          cd "${RUNNER_TEMP}"
+          git clone "https://${GITHUB_REPOSITORY_OWNER}:${{ secrets.PAT_TOKEN }}@github.com/${GITHUB_REPOSITORY}" result
+          cd result
+          git checkout -b sonar/${GITHUB_REF_NAME}
+          echo "output_dir=${RUNNER_TEMP}/result" >> $GITHUB_OUTPUT
+
+      - name: OpenAI GPT fix
+        uses: o-kasian/openai-sonarqube-action@main
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          openai-token: ${{ secrets.OPENAI_TOKEN }}
+          output-dir: ${{ steps.checkout_branch.outputs.output_dir }}
+
+      - name: Push the changes
+        run: |
+          cd "${RUNNER_TEMP}"/result
+          git config --global user.email "noreply@example.com"
+          git config --global user.name "OpenAI GPT"
+
+          git add .
+          git commit -m 'chore: fixes from GPT'
+          git push --set-upstream origin sonar/${GITHUB_REF_NAME}
