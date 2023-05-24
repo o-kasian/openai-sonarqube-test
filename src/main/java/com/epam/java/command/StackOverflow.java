@@ -1,5 +1,5 @@
 
-package com.epam.java.command;
+package com.nik.java.command;
 
 public class StackOverflow implements Command {
 
@@ -10,10 +10,10 @@ public class StackOverflow implements Command {
 
     @Override
     public void stop() throws Exception {
-
+        // Add implementation to stop the execution if needed
     }
 
     private void recursiveCall() {
-        throw new UnsupportedOperationException("Not implemented yet."); 
+        throw new UnsupportedOperationException("Recursive Call Not Implemented");
     }
 }

@@ -3,15 +3,13 @@ package com.epam.java.command;
 
 public interface Command {
 
-    void start(String[] args) throws CustomCommandException;
+    void start(String[] args) throws CustomException;
 
-    void stop() throws CustomCommandException;
+    void stop() throws CustomException;
 }
 
-class CustomCommandException extends Exception {
-    public CustomCommandException(String message) {
+class CustomException extends Exception {
+    public CustomException(String message) {
         super(message);
     }
 }
-```
-Note: It is always better to create a custom exception with a meaningful message instead of using a generic exception. This helps in improving the readability and maintainability of the code.

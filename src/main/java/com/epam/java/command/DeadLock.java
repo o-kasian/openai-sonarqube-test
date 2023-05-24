@@ -50,6 +50,6 @@ public class DeadLock implements Command {
 
     @Override
     public void stop() throws Exception {
-        throw new UnsupportedOperationException("Method not implemented yet");
+        // Method intentionally left blank
     }
 }

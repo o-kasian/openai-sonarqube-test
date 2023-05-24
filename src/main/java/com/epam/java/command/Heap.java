@@ -52,12 +52,19 @@ public class Heap implements Command {
                     random.nextBytes(bytes);
                     list.add(bytes);
                     synchronized (monitor) {
+                        while (list.size() > 100) {
+                            list.remove();
+                        }
                         monitor.wait(100);
                     }
                 }
-            } catch (InterruptedException e) {
-                LOGGER.error(e);
-                Thread.currentThread().interrupt();
+            } catch (InterruptedException interruptedException) {
+                throw interruptedException;
+            } catch (Exception exception) {
+                LOGGER.error(exception);
+                synchronized (monitor) {
+                    monitor.wait();
+                }
             }
         }
 
@@ -84,12 +91,19 @@ public class Heap implements Command {
                     random.nextBytes(bytes);
                     list.add(bytes);
                     synchronized (monitor) {
+                        while (list.size() > 100) {
+                            list.remove();
+                        }
                         monitor.wait(100);
                     }
                 }
-            } catch (InterruptedException e) {
-                LOGGER.error(e);
-                Thread.currentThread().interrupt();
+            } catch (InterruptedException interruptedException) {
+                throw interruptedException;
+            } catch (Exception exception) {
+                LOGGER.error(exception);
+                synchronized (monitor) {
+                    monitor.wait();
+                }
             }
         }
 
@@ -116,12 +130,19 @@ public class Heap implements Command {
                     random.nextBytes(bytes);
                     list.add(new SoftReference<>(bytes));
                     synchronized (monitor) {
+                        while (list.size() > 100) {
+                            list.remove();
+                        }
                         monitor.wait(100);
                     }
                 }
-            } catch (InterruptedException e) {
-                LOGGER.error(e);
-                Thread.currentThread().interrupt();
+            } catch (InterruptedException interruptedException) {
+                throw interruptedException;
+            } catch (Exception exception) {
+                LOGGER.error(exception);
+                synchronized (monitor) {
+                    monitor.wait();
+                }
             }
         }
 
@@ -134,10 +155,3 @@ public class Heap implements Command {
         }
     }
 }
-``` 
-**Explanation:** 
-
-- For the lines with Catch, instead of using Throwable, InterruptedException is used.
-- The mentioned warning coming on the `wait` statement has now been written under the `try-catch` block so, instead of catching both `InterruptedExcepion` and `Throwable`, we can now catch only the `InterruptedException`.
-- Removed the `Throwable` and replaced it with `InterruptedException` in the catch block.
-- For the mentioned line with the `wait` statement, an InterruptedException has been included and the wait method is wrapped under `try-catch`.
