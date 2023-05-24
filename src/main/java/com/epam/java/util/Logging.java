@@ -1,9 +1,14 @@
 package com.epam.java.util;
 
-public class Logging {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-    private static final Logger instance = new Logger();
-    private static final String prefix = " >> ";
+public final class Logging {
+
+    private static final Logger instance = LoggerFactory.getLogger(Logging.class);
+    private static final String PREFIX = " >> ";
+
+    private Logging() {}
 
     public static Logger getLogger() {
         return instance;
@@ -11,12 +16,18 @@ public class Logging {
 
     public static class Logger {
 
+        private final org.slf4j.Logger logger;
+
+        public Logger() {
+            logger = LoggerFactory.getLogger(Logger.class);
+        }
+
         public void info(String message) {
-            System.out.println(String.format("%s%s", prefix, message));
+            logger.info(PREFIX + message);
         }
 
         public void error(Throwable e) {
-            e.printStackTrace();
+            logger.error("An error occurred", e);
         }
     }
 
