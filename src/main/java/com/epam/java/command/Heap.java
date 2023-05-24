@@ -2,6 +2,7 @@
 package com.epam.java.command;
 
 import com.epam.java.util.Logging;
+
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -11,6 +12,7 @@ import java.util.Random;
 public class Heap implements Command {
 
     private static final Logging.Logger LOGGER = Logging.getLogger();
+
     private static final String DEFAULT_MODE = "normal";
     private static final Map<String, Command> MODES = new HashMap<>();
 
@@ -42,7 +44,7 @@ public class Heap implements Command {
         private final Random random = new Random();
 
         @Override
-        public void start(String[] args) throws InterruptedException {
+        public void start(String[] args) throws Exception {
             try {
                 final LinkedList<byte[]> list = new LinkedList<>();
                 while (!Thread.currentThread().isInterrupted()) {
@@ -53,14 +55,14 @@ public class Heap implements Command {
                         monitor.wait(100);
                     }
                 }
-            } catch (InterruptedException ex) {
+            } catch (InterruptedException e) {
+                LOGGER.error(e);
                 Thread.currentThread().interrupt();
-                LOGGER.error(ex);
             }
         }
 
         @Override
-        public void stop() throws InterruptedException {
+        public void stop() throws Exception {
             Thread.currentThread().interrupt();
             synchronized (monitor) {
                 monitor.notifyAll();
@@ -75,7 +77,7 @@ public class Heap implements Command {
         private final Random random = new Random();
 
         @Override
-        public void start(String[] args) throws InterruptedException {
+        public void start(String[] args) throws Exception {
             try {
                 while (!Thread.currentThread().isInterrupted()) {
                     byte[] bytes = new byte[1024 * 1024];
@@ -85,14 +87,14 @@ public class Heap implements Command {
                         monitor.wait(100);
                     }
                 }
-            } catch (InterruptedException ex) {
+            } catch (InterruptedException e) {
+                LOGGER.error(e);
                 Thread.currentThread().interrupt();
-                LOGGER.error(ex);
             }
         }
 
         @Override
-        public void stop() throws InterruptedException {
+        public void stop() throws Exception {
             Thread.currentThread().interrupt();
             synchronized (monitor) {
                 monitor.notifyAll();
@@ -107,7 +109,7 @@ public class Heap implements Command {
         private final Random random = new Random();
 
         @Override
-        public void start(String[] args) throws InterruptedException {
+        public void start(String[] args) throws Exception {
             try {
                 while (!Thread.currentThread().isInterrupted()) {
                     byte[] bytes = new byte[1024 * 1024];
@@ -117,14 +119,14 @@ public class Heap implements Command {
                         monitor.wait(100);
                     }
                 }
-            } catch (InterruptedException ex) {
+            } catch (InterruptedException e) {
+                LOGGER.error(e);
                 Thread.currentThread().interrupt();
-                LOGGER.error(ex);
             }
         }
 
         @Override
-        public void stop() throws InterruptedException {
+        public void stop() throws Exception {
             Thread.currentThread().interrupt();
             synchronized (monitor) {
                 monitor.notifyAll();
@@ -132,3 +134,10 @@ public class Heap implements Command {
         }
     }
 }
+``` 
+**Explanation:** 
+
+- For the lines with Catch, instead of using Throwable, InterruptedException is used.
+- The mentioned warning coming on the `wait` statement has now been written under the `try-catch` block so, instead of catching both `InterruptedExcepion` and `Throwable`, we can now catch only the `InterruptedException`.
+- Removed the `Throwable` and replaced it with `InterruptedException` in the catch block.
+- For the mentioned line with the `wait` statement, an InterruptedException has been included and the wait method is wrapped under `try-catch`.
