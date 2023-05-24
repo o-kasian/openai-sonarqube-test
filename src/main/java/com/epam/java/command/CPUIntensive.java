@@ -19,7 +19,7 @@ public class CPUIntensive implements Command {
         final int cores = Runtime.getRuntime().availableProcessors();
         executorService = Executors.newFixedThreadPool(cores);
         for (int i = 0; i < cores; i++) {
-           submitTask(i);
+            submitTask(i);
         }
     }
 
@@ -27,7 +27,7 @@ public class CPUIntensive implements Command {
         executorService.submit(() -> {
             LOGGER.info(String.format("Starting work on thread %d", id));
             while (!Thread.currentThread().isInterrupted()) {
-                double dummyResult = tan(atan(tan(atan(Math.random()))));
+                tan(atan(tan(atan(Math.random()))));
             }
         });
     }
