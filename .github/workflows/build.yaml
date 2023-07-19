@@ -2,9 +2,6 @@ name: Build and test project
 
 on:
   workflow_dispatch:
-  push:
-    branches-ignore:    
-      - 'sonar/**'
       
 jobs:
   build:
