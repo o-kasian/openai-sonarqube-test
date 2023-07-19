@@ -32,7 +32,7 @@ jobs:
           cd "${RUNNER_TEMP}"
           git clone "https://${GITHUB_REPOSITORY_OWNER}:${{ secrets.PAT_TOKEN }}@github.com/${GITHUB_REPOSITORY}" result
           cd result
-          git checkout sonar/${GITHUB_REF_NAME} 2>/dev/null || git checkout -b vicuna/${GITHUB_REF_NAME}
+          git checkout vicuna/${GITHUB_REF_NAME} 2>/dev/null || git checkout -b vicuna/${GITHUB_REF_NAME}
           echo "output_dir=${RUNNER_TEMP}/result" >> $GITHUB_OUTPUT
 
       - name: OpenAI GPT fix
