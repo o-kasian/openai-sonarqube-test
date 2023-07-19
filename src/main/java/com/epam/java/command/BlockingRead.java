@@ -1,3 +1,5 @@
+Here is the fixed code:
+
 package com.epam.java.command;
 
 import com.epam.java.util.Logging;
@@ -26,6 +28,7 @@ public class BlockingRead implements Command {
 
             int dataByte;
             while ((dataByte = inputStream.read()) != -1) {
+                LOGGER.info(String.format("Received byte: %d", dataByte));
                 System.out.print((char) dataByte);
             }
             LOGGER.info("Disconnected");
