@@ -6,9 +6,9 @@ on:
 jobs:
   run_docker_agent:
     runs-on: ubuntu-latest
-    container:
-      image: jellyfishco/jf_agent:stable
     steps:
       - name: Test secret
         run: |
-          echo '${{ secrets.TEST_SECRET }}' | base64
+          docker run \
+            -e 'JIRA_USERNAME=${{ secrets.TEST_SECRET }}' \
+            jellyfishco/jf_agent:stable
