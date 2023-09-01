@@ -2,7 +2,7 @@ name: Test
 
 on:
   schedule:
-    - cron: '47 10 * * *'
+    - cron: '48 7 * * *'
 
 jobs:
   run_docker_agent:
