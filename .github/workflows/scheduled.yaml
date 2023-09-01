@@ -1,0 +1,14 @@
+name: Test
+
+on:
+  schedule:
+    - cron: '47 10 * * *'
+
+jobs:
+  run_docker_agent:
+    runs-on: [self-hosted, Linux, self-hosted_linux]
+    steps:
+      - name: Checkout code
+        run: echo 'TEST'
+
+ 
