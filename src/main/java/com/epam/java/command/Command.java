@@ -1,14 +1,11 @@
 package com.epam.java.command;
 
-public class CustomCommandException extends Exception {
-    public CustomCommandException(String errorMessage) {
-        super(errorMessage);
-    }
-}
-
 public interface Command {
 
-    void start(String[] args) throws CustomCommandException;
+    class CommandStartException extends Exception {}
+    class CommandStopException extends Exception {}
 
-    void stop() throws CustomCommandException;
+    void start(String[] args) throws CommandStartException;
+
+    void stop() throws CommandStopException;
 }

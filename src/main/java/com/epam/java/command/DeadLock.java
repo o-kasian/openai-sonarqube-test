@@ -1,4 +1,3 @@
-java
 package com.epam.java.command;
 
 import com.epam.java.util.Logging;
@@ -50,6 +49,6 @@ public class DeadLock implements Command {
 
     @Override
     public void stop() throws Exception {
-        throw new UnsupportedOperationException("The stop method is not supported in DeadLock");
+        throw new UnsupportedOperationException("Method stop() not yet implemented.");
     }
 }

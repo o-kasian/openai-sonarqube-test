@@ -4,19 +4,16 @@ public class StackOverflow implements Command {
 
     @Override
     public void start(String[] args) throws Exception {
-        boolean shouldStop = false;
-        recursiveCall(shouldStop);
+        recursiveCall(0);
     }
 
     @Override
     public void stop() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // The 'stop' method has nothing to do by design. 
     }
 
-    private void recursiveCall(boolean shouldStop) {
-        if (shouldStop) {
-            return;
-        }
-        recursiveCall(shouldStop);
+    private void recursiveCall(int depth) {
+        if (depth > 1000) return; // breaking condition
+        recursiveCall(depth + 1);
     }
 }

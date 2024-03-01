@@ -1,14 +1,17 @@
-java
 package com.epam.java.command;
+
 import com.epam.java.util.Logging;
+
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
 
 public class Heap implements Command {
 
     private static final Logging.Logger LOGGER = Logging.getLogger();
+
     private static final String DEFAULT_MODE = "normal";
     private static final Map<String, Command> MODES = new HashMap<>();
 
@@ -48,22 +51,16 @@ public class Heap implements Command {
                     random.nextBytes(bytes);
                     list.add(bytes);
                     synchronized (monitor) {
-                        monitor.wait(100);
+                        while (!Thread.currentThread().isInterrupted()) {
+                            monitor.wait(100);
+                        }
                     }
                 }
-            } catch (InterruptedException ex) {
+            } catch (InterruptedException interruptedException) {
                 Thread.currentThread().interrupt();
-                LOGGER.error(ex);
-            } catch (Exception exception) {
-                LOGGER.error(exception);
-                while (Thread.interrupted()) {
-                    try {
-                        monitor.wait();
-                    } catch (InterruptedException ex) {
-                        Thread.currentThread().interrupt();
-                        LOGGER.error(ex);
-                    }
-                }
+                LOGGER.error(interruptedException);
+            } catch (Exception e) {
+                LOGGER.error(e);
             }
         }
 
@@ -90,22 +87,16 @@ public class Heap implements Command {
                     random.nextBytes(bytes);
                     list.add(bytes);
                     synchronized (monitor) {
-                        monitor.wait(100);
+                        while (!Thread.currentThread().isInterrupted()) {
+                            monitor.wait(100);
+                        }
                     }
                 }
-            } catch (InterruptedException ex) {
+            } catch (InterruptedException interruptedException) {
                 Thread.currentThread().interrupt();
-                LOGGER.error(ex);
-            } catch (Exception exception) {
-                LOGGER.error(exception);
-                while (Thread.interrupted()) {
-                    try {
-                        monitor.wait();
-                    } catch (InterruptedException ex) {
-                        Thread.currentThread().interrupt();
-                        LOGGER.error(ex);
-                    }
-                }
+                LOGGER.error(interruptedException);
+            } catch (Exception e) {
+                LOGGER.error(e);
             }
         }
 
@@ -132,22 +123,16 @@ public class Heap implements Command {
                     random.nextBytes(bytes);
                     list.add(new SoftReference<>(bytes));
                     synchronized (monitor) {
-                        monitor.wait(100);
+                        while (!Thread.currentThread().isInterrupted()) {
+                            monitor.wait(100);
+                        }
                     }
                 }
-            } catch (InterruptedException ex) {
+            } catch (InterruptedException interruptedException) {
                 Thread.currentThread().interrupt();
-                LOGGER.error(ex);
-            } catch (Exception exception) {
-                LOGGER.error(exception);
-                while (Thread.interrupted()) {
-                    try {
-                        monitor.wait();
-                    } catch (InterruptedException ex) {
-                        Thread.currentThread().interrupt();
-                        LOGGER.error(ex);
-                    }
-                }
+                LOGGER.error(interruptedException);
+            } catch (Exception e) {
+                LOGGER.error(e);
             }
         }
 
