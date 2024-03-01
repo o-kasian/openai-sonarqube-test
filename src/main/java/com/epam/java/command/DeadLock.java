@@ -49,6 +49,6 @@ public class DeadLock implements Command {
 
     @Override
     public void stop() throws Exception {
-
+        // No implementation required for this example, but in a real-world scenario this method should be properly implemented.
     }
 }

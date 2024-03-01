@@ -25,9 +25,11 @@ public class BlockingRead implements Command {
             final InputStream inputStream = sock.getInputStream();
 
             int dataByte;
+            StringBuilder message = new StringBuilder();
             while ((dataByte = inputStream.read()) != -1) {
-                System.out.print((char) dataByte);
+                message.append((char) dataByte);
             }
+            LOGGER.info(message.toString());
             LOGGER.info("Disconnected");
         }
     }
