@@ -49,6 +49,8 @@ public class DeadLock implements Command {
 
     @Override
     public void stop() throws Exception {
-
+        // This method is intentionally left blank to adhere to the interface contract.
+        // This command does not require a stop mechanism.
+        throw new UnsupportedOperationException("Stop method is not supported.");
     }
 }

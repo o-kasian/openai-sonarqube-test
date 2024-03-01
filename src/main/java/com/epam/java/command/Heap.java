@@ -51,11 +51,13 @@ public class Heap implements Command {
                     random.nextBytes(bytes);
                     list.add(bytes);
                     synchronized (monitor) {
-                        monitor.wait(100);
+                        while(monitor.wait(100)) {}
                     }
                 }
-            } catch (Throwable throwable) {
-                LOGGER.error(throwable);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } catch (Exception e) {
+                LOGGER.error(e);
                 synchronized (monitor) {
                     monitor.wait();
                 }
@@ -85,11 +87,13 @@ public class Heap implements Command {
                     random.nextBytes(bytes);
                     list.add(bytes);
                     synchronized (monitor) {
-                        monitor.wait(100);
+                        while(monitor.wait(100)) {}
                     }
                 }
-            } catch (Throwable throwable) {
-                LOGGER.error(throwable);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } catch (Exception e) {
+                LOGGER.error(e);
                 synchronized (monitor) {
                     monitor.wait();
                 }
@@ -119,11 +123,13 @@ public class Heap implements Command {
                     random.nextBytes(bytes);
                     list.add(new SoftReference<>(bytes));
                     synchronized (monitor) {
-                        monitor.wait(100);
+                        while(monitor.wait(100)) {}
                     }
                 }
-            } catch (Throwable throwable) {
-                LOGGER.error(throwable);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } catch (Exception e) {
+                LOGGER.error(e);
                 synchronized (monitor) {
                     monitor.wait();
                 }
