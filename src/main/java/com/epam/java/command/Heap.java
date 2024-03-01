@@ -51,16 +51,12 @@ public class Heap implements Command {
                     random.nextBytes(bytes);
                     list.add(bytes);
                     synchronized (monitor) {
-                        while (!Thread.currentThread().isInterrupted()) {
-                            monitor.wait(100);
-                        }
+                        while(!monitor.wait(100));
                     }
                 }
-            } catch (InterruptedException interruptedException) {
-                Thread.currentThread().interrupt();
-                LOGGER.error(interruptedException);
             } catch (Exception e) {
                 LOGGER.error(e);
+                Thread.currentThread().interrupt();
             }
         }
 
@@ -87,16 +83,12 @@ public class Heap implements Command {
                     random.nextBytes(bytes);
                     list.add(bytes);
                     synchronized (monitor) {
-                        while (!Thread.currentThread().isInterrupted()) {
-                            monitor.wait(100);
-                        }
+                        while(!monitor.wait(100));
                     }
                 }
-            } catch (InterruptedException interruptedException) {
-                Thread.currentThread().interrupt();
-                LOGGER.error(interruptedException);
             } catch (Exception e) {
                 LOGGER.error(e);
+                Thread.currentThread().interrupt();
             }
         }
 
@@ -123,16 +115,12 @@ public class Heap implements Command {
                     random.nextBytes(bytes);
                     list.add(new SoftReference<>(bytes));
                     synchronized (monitor) {
-                        while (!Thread.currentThread().isInterrupted()) {
-                            monitor.wait(100);
-                        }
+                        while(!monitor.wait(100));
                     }
                 }
-            } catch (InterruptedException interruptedException) {
-                Thread.currentThread().interrupt();
-                LOGGER.error(interruptedException);
             } catch (Exception e) {
                 LOGGER.error(e);
+                Thread.currentThread().interrupt();
             }
         }
 

@@ -4,6 +4,7 @@ public class Logging {
 
     private static final Logger INSTANCE = new Logger();
     private static final String PREFIX = " >> ";
+    
     private Logging() {}
 
     public static Logger getLogger() {
@@ -12,14 +13,14 @@ public class Logging {
 
     public static class Logger {
 
+        private java.util.logging.Logger javaLogger = java.util.logging.Logger.getLogger(Logging.class.getName());
+
         public void info(String message) {
-            // assuming java.util.logging.Logger here
-            java.util.logging.Logger.getLogger("").info(String.format("%s%s", PREFIX, message));
+            javaLogger.info(String.format("%s%s", PREFIX, message));
         }
 
         public void error(Throwable e) {
-            // assuming java.util.logging.Logger here
-            java.util.logging.Logger.getLogger("").severe(e.toString());
+            javaLogger.severe(e.getMessage());
         }
     }
 

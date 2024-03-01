@@ -9,11 +9,13 @@ public class StackOverflow implements Command {
 
     @Override
     public void stop() throws Exception {
-        // The 'stop' method has nothing to do by design. 
+        // Method intentionally left blank
     }
 
     private void recursiveCall(int depth) {
-        if (depth > 1000) return; // breaking condition
+        if (depth > 10) {
+            return;
+        }
         recursiveCall(depth + 1);
     }
 }

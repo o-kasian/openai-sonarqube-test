@@ -24,10 +24,12 @@ public class BlockingRead implements Command {
             LOGGER.info(String.format("Connected, will echo all requests on port %d", sock.getPort()));
             final InputStream inputStream = sock.getInputStream();
 
+            StringBuilder sb = new StringBuilder();
             int dataByte;
             while ((dataByte = inputStream.read()) != -1) {
-                LOGGER.info(String.valueOf((char) dataByte));
+                sb.append((char) dataByte);
             }
+            LOGGER.info(sb.toString());
             LOGGER.info("Disconnected");
         }
     }

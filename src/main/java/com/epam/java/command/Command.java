@@ -2,10 +2,17 @@ package com.epam.java.command;
 
 public interface Command {
 
-    class CommandStartException extends Exception {}
-    class CommandStopException extends Exception {}
+    void start(String[] args) throws CommandException;
 
-    void start(String[] args) throws CommandStartException;
+    void stop() throws CommandException;
+}
 
-    void stop() throws CommandStopException;
+class CommandException extends Exception {
+    public CommandException(String message) {
+        super(message);
+    }
+
+    public CommandException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
