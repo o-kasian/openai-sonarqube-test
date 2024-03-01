@@ -9,12 +9,12 @@ public class StackOverflow implements Command {
 
     @Override
     public void stop() throws Exception {
-        // Method intentionally left empty as no action is required on stop
+        // This method is intentionally left blank to adhere to the interface contract without needing an action at stop.
     }
 
     private void recursiveCall(int depth) {
         if (depth > 10) {
-            return; // Add a simple way to break out to prevent stack overflow
+            return; // Adding a simple way to break out to prevent stack overflow.
         }
         recursiveCall(depth + 1);
     }

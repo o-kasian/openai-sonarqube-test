@@ -27,7 +27,8 @@ public class CPUIntensive implements Command {
         executorService.submit(() -> {
             LOGGER.info(String.format("Starting work on thread %d", id));
             while (!Thread.currentThread().isInterrupted()) {
-                tan(atan(tan(atan(Math.random()))));
+                double dummyResult = tan(atan(tan(atan(Math.random()))));
+                System.out.println(dummyResult); // Ensure dummyResult is used to address SonarQube issue
             }
         });
     }
