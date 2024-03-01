@@ -1,33 +1,30 @@
+java
 package com.epam.java.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-public final class Logging {
-
-    private static final Logger instance = LoggerFactory.getLogger(Logging.class);
-    private static final String PREFIX = " >> ";
+public class Logging {
 
     private Logging() {}
 
+    private static final Logger INSTANCE = new Logger();
+    private static final String PREFIX = " >> ";
+    private static final Logger LOGGER = Logger.getLogger();
+
     public static Logger getLogger() {
-        return instance;
+        return INSTANCE;
     }
 
     public static class Logger {
 
-        private final org.slf4j.Logger logger;
-
-        public Logger() {
-            logger = LoggerFactory.getLogger(Logger.class);
+        public static Logger getLogger() {
+            return LOGGER;
         }
 
         public void info(String message) {
-            logger.info(PREFIX + message);
+            LOGGER.info(message);
         }
 
         public void error(Throwable e) {
-            logger.error("An error occurred", e);
+            LOGGER.error(e);
         }
     }
 
